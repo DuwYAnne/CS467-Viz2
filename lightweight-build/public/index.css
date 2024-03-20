@@ -1,0 +1,132 @@
+/* Insert your global CSS here. */
+html, body {
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    font-size: 16px;
+    font-family: Helvetica;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+*:active {
+    outline:none;
+}
+
+#content {
+    display:grid;
+    grid-template-columns: 150px auto;
+    height:100%;
+}
+
+#nav {
+    width: 100%;
+    height: 50px;
+    text-align:center;
+    height:25%;
+    background-color:#cee866;
+    border-radius: 1.2em;
+    box-shadow: red -10px 6px;
+}
+
+#nav a {
+    line-height:50px;
+    text-decoration:none;
+    color: black;
+    font-variant:small-caps;
+    font-size: 32px;
+    display: block;
+}
+
+#nav a:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 1.2em;
+}
+
+main {
+    display:inline-block;
+    margin:0px;
+    height:100%;
+}
+
+.page {
+    display: none;
+    padding-left:20px;
+    padding-top:20px;
+    margin:0px;
+    height: 100%;
+}
+
+.page h1 {
+    margin:0px;
+}
+
+.default {
+    display:block;
+}
+
+:target {
+    display:block;
+}
+
+:target ~ .default {
+    display:none;
+}
+
+
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    background-color: #ccc;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    height:70%;
+}
+
+.arrow:hover {
+    background-color: #aaa;
+}
+
+.arrow-left {
+    margin-right: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.arrow-right {
+    margin-left: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.button-text {
+    color:#bd66f7;
+    text-shadow:1px 1px 10px #fff, 1px 1px 10px #ccc;
+    font-size:24px;
+    text-align:center;
+    width: 200px;
+    overflow: hidden;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    pointer-events: none; /* Ensure tooltip doesn't interfere with mouse events */
+}
