@@ -1,7 +1,7 @@
   // set the dimensions and margins of the graph
   var margin = {top: 80, right: 20, bottom: 30, left: 35},
-  width = 700 - margin.left - margin.right,
-  height = 700 - margin.top - margin.bottom;
+  width = 650 - margin.left - margin.right,
+  height = 650 - margin.top - margin.bottom;
 
 
 function drawHeatmap() {
