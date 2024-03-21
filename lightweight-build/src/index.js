@@ -11,7 +11,6 @@ const mood = {
   5: 'very positive'
 }
 var type = 0; // 0: mood, 1: sleepminutes, 2: activeminutes, 4: etc.
-let globalData; // Declare a global variable to store the parsed data
 function tooltip(d) {
   const formatDate = d3.timeFormat("%B %d, %Y");
   switch (type) {
