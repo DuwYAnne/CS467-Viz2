@@ -130,3 +130,14 @@ main {
     font-size: 14px;
     pointer-events: none; /* Ensure tooltip doesn't interfere with mouse events */
 }
+
+.subheader {
+    font-family: Helvetica;
+    font-size: 14px;
+    font-weight: bold;
+}
+.info {
+    font-family: Helvetica;
+    font-size: 10px;
+    font-style: italic;
+}

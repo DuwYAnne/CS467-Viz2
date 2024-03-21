@@ -1,85 +1,96 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>D3 starter template</title>
-  <meta name="description" content="D3 starter template">
-  <meta name="author" content="">
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="index.css">
+  
+<style>
+h1 {
+  text-align: center;
+}
+
+button {
+  margin: auto;
+  background-color: blue;
+  background-image: linear-gradient(to right, blue , hotpink);
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+
+}
+
+input[type=text], input[type=password] {
+  width: 99%;
+  padding: 10px 10px;
+  margin: 15px 0;
+  display: inline-block;
+  border: 2px solid #e4dfdf;
+  box-sizing: border-box;
+}
+
+
+
+button:hover {
+  opacity: 0.7;
+}
+
+
+
+
+.imagecontainer {
+  background-color: rgba(80, 78, 78, 0.263);
+
+  text-align: center;
+  margin: auto;
+  width: 30%;
+  padding: 40px;
+}
+
+img.picture {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  background-color: rgba(80, 78, 78, 0.263);
+
+  margin: auto;
+  width: 30%;
+  padding: 40px;
+
+}
+body, html {
+  font-family: Helvetica, Helvetica, sans-serif;
+  height: 100%;
+  background-image: linear-gradient(to top right, rgb(198, 198, 245) , rgb(255, 217, 236));
+
+}
+
+
+</style>
 </head>
-
 <body>
-  <div id="content">
-    <nav id="nav">
-      <a href="#page1">Upload</a>
-      <a href="#page2">Overview</a>
-      <a href="#page3">Compare</a>
-    </nav>
-    <main>
-      <div id="page1" class="page">
-        <div class="imagecontainer">
-          <h2>Upload .csv file containing Steps/Mood/Sleep info!</h2>
-          <form action="#" id="uploadForm">
-           <input type="file" id="myfile" name="filename">
-           <input type="submit">
-         </form>
-        </div>
-      </div>
-      <div id="page3" class="page">
-        <h1>Page 3</h1>
-        <p>Okay... This is the third page...</p>
-      </div>
-      <div id="page4" class="page">
-        <h1>Page 4</h1>
-        <p>Uhh... lol page?</p>
-      </div>
-      <div id="page2" class="page default">
-        <div class="arrow-container">
-          <button class="arrow arrow-left">&lt;</button>
-          <p id="button-text" class="button-text"> There's no data :( </p>
-          <button class="arrow arrow-right">&gt;</button>
-        </div>        
-        <svg id="svg" width="1000" height="1000"></svg>
-        
-      </div>
-    </main>
+
+
+<form action="./main.html" >
+  <div class="imagecontainer">
+    <img src="./loginimage.png" alt="picture" class="picture">
   </div>
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="main.js" type="module"></script>
-  <!-- 
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script>
-  /**
-   * Main entry point -- this file has been added to index.html in a <script> tag. Add whatever code you want below.
-   */
-  "use strict";
 
-  const data = [
-      {x: 10, y: 30, r: 10, color: "red"},
-      {x: 50, y: 30, r: 20, color: "green"},
-      {x: 110, y: 30, r: 30, color: "blue"}
-  ];
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname">
 
-  /*
-  * Why this line? Because if this script runs before the svg exists, then nothing will happen, and d3 won't even
-  * complain.  This delays drawing until the entire DOM has loaded.
-  */
-  window.addEventListener("load", drawCircles);
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw">
 
-  function drawCircles() {
-      // d3 has been added to the html in a <script> tag so referencing it here should work.
-      const svg = d3.select("svg");
-      svg.selectAll("circle")
-          .data(data)
-          .join("circle")
-              .attr("cx", d => d.x)
-              .attr("cy", d => d.y)
-              .attr("r", d => d.r)
-              .attr("fill", d => d.color);
-  }
-  </script>
-  <svg width="300" height="100"></svg>
-  -->
+    <button type="submit" action="./main.html" >Log In</button>
+
+      
+ 
+  </div>
+
+</form>
+
 </body>
 </html>
