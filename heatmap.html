@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my_dataviz {
+    width: 500px;
+    height: 500px;
+}
+</style>
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<!-- Load color palettes -->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script>
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 80, right: 20, bottom: 30, left: 35},
+      width = 450 - margin.left - margin.right,
+      height = 450 - margin.top - margin.bottom;
+    
+    //Read the data
+//     const data = [
+//     { date: '2024-01-01', sleepHours: 8, mood: 'Happy' ,h:1},
+//     { date: '2024-01-02', sleepHours: 7.5, mood: 'Sad',h:4 },
+//     { date: '2024-01-03', sleepHours: 9, mood: 'Happy' ,h:2},
+//     { date: '2024-01-04', sleepHours: 6.5, mood: 'Neutral',h:2 },
+//     { date: '2024-01-05', sleepHours: 8, mood: 'Sad',h:3 },
+//     { date: '2024-01-06', sleepHours: 7, mood: 'Happy',h:4 },
+//     { date: '2024-01-07', sleepHours: 9, mood: 'Neutral' ,h:4}
+//    ];
+
+
+
+
+const data = [
+    { Date: '2021-02-01', Mood: 5, SleepMinutes: 326, ActiveMinutes: 44 },
+    { Date: '2021-02-02', Mood: 1, SleepMinutes: 321, ActiveMinutes: 67 },
+    { Date: '2021-02-03', Mood: 1, SleepMinutes: 449, ActiveMinutes: 12 },
+    { Date: '2021-02-04', Mood: 2, SleepMinutes: 469, ActiveMinutes: 84 },
+    { Date: '2021-02-05', Mood: 4, SleepMinutes: 490, ActiveMinutes: 40 },
+    { Date: '2021-02-06', Mood: 6, SleepMinutes: 405, ActiveMinutes: 14 },
+    { Date: '2021-02-07', Mood: 6, SleepMinutes: 436, ActiveMinutes: 71 },
+    { Date: '2021-02-08', Mood: 6, SleepMinutes: 381, ActiveMinutes: 80 },
+    { Date: '2021-02-09', Mood: 1, SleepMinutes: 307, ActiveMinutes: 63 },
+    { Date: '2021-02-10', Mood: 1, SleepMinutes: 384, ActiveMinutes: 84 },
+    { Date: '2021-02-11', Mood: 2, SleepMinutes: 353, ActiveMinutes: 99 },
+    { Date: '2021-02-12', Mood: 4, SleepMinutes: 487, ActiveMinutes: 81 },
+    { Date: '2021-02-13', Mood: 4, SleepMinutes: 446, ActiveMinutes: 12 },
+    { Date: '2021-02-14', Mood: 4, SleepMinutes: 430, ActiveMinutes: 39 },
+    { Date: '2021-02-15', Mood: 5, SleepMinutes: 338, ActiveMinutes: 88 },
+    { Date: '2021-02-16', Mood: 4, SleepMinutes: 313, ActiveMinutes: 74 },
+    { Date: '2021-02-17', Mood: 6, SleepMinutes: 397, ActiveMinutes: 95 },
+    { Date: '2021-02-18', Mood: 2, SleepMinutes: 395, ActiveMinutes: 90 },
+    { Date: '2021-02-19', Mood: 4, SleepMinutes: 344, ActiveMinutes: 79 },
+    { Date: '2021-02-20', Mood: 4, SleepMinutes: 456, ActiveMinutes: 13 },
+    { Date: '2021-02-21', Mood: 4, SleepMinutes: 302, ActiveMinutes: 73 },
+    { Date: '2021-02-22', Mood: 6, SleepMinutes: 486, ActiveMinutes: 78 },
+    { Date: '2021-02-23', Mood: 6, SleepMinutes: 392, ActiveMinutes: 88 },
+    { Date: '2021-02-24', Mood: 4, SleepMinutes: 420, ActiveMinutes: 35 },
+    { Date: '2021-02-25', Mood: 6, SleepMinutes: 490, ActiveMinutes: 17 },
+    { Date: '2021-02-26', Mood: 5, SleepMinutes: 386, ActiveMinutes: 30 },
+    { Date: '2021-02-27', Mood: 2, SleepMinutes: 362, ActiveMinutes: 48 },
+    { Date: '2021-02-28', Mood: 1, SleepMinutes: 473, ActiveMinutes: 54 },
+    { Date: '2021-03-01', Mood: 5, SleepMinutes: 451, ActiveMinutes: 72 },
+    { Date: '2021-03-02', Mood: 5, SleepMinutes: 331, ActiveMinutes: 36 },
+    { Date: '2021-03-03', Mood: 3, SleepMinutes: 370, ActiveMinutes: 24 },
+    { Date: '2021-03-04', Mood: 6, SleepMinutes: 428, ActiveMinutes: 86 },
+    { Date: '2021-03-05', Mood: 4, SleepMinutes: 367, ActiveMinutes: 78 },
+    { Date: '2021-03-06', Mood: 1, SleepMinutes: 419, ActiveMinutes: 19 },
+    { Date: '2021-03-07', Mood: 3, SleepMinutes: 372, ActiveMinutes: 25 },
+    { Date: '2021-03-08', Mood: 3, SleepMinutes: 374, ActiveMinutes: 69 },
+    { Date: '2021-03-09', Mood: 4, SleepMinutes: 364, ActiveMinutes: 15 },
+    { Date: '2021-03-10', Mood: 4, SleepMinutes: 489, ActiveMinutes: 40 },
+    { Date: '2021-03-11', Mood: 3, SleepMinutes: 334, ActiveMinutes: 37 },
+    { Date: '2021-03-12', Mood: 1, SleepMinutes: 471, ActiveMinutes: 46 },
+    { Date: '2021-03-13', Mood: 3, SleepMinutes: 381, ActiveMinutes: 88 },
+    { Date: '2021-03-14', Mood: 2, SleepMinutes: 303, ActiveMinutes: 98 },
+    { Date: '2021-03-15', Mood: 4, SleepMinutes: 493, ActiveMinutes: 79 },
+    { Date: '2021-03-16', Mood: 2, SleepMinutes: 403, ActiveMinutes: 41 },
+    { Date: '2021-03-17', Mood: 6, SleepMinutes: 493, ActiveMinutes: 85 },
+    { Date: '2021-03-18', Mood: 2, SleepMinutes: 401, ActiveMinutes: 20 },
+    { Date: '2021-03-19', Mood: 4, SleepMinutes: 400, ActiveMinutes: 53 },
+    { Date: '2021-03-20', Mood: 4, SleepMinutes: 461, ActiveMinutes: 38 },
+    { Date: '2021-03-21', Mood: 3, SleepMinutes: 400, ActiveMinutes: 60 },
+    { Date: '2021-03-22', Mood: 5, SleepMinutes: 302, ActiveMinutes: 60 },
+    { Date: '2021-03-23', Mood: 6, SleepMinutes: 428, ActiveMinutes: 40 },
+    { Date: '2021-03-24', Mood: 1, SleepMinutes: 490, ActiveMinutes: 66 }]
+
+
+
+    var svg = d3.select("#my_dataviz")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+   
+
+    // d3.csv(ll, function(data) {
+    
+      // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
+    const upFunc = ()=>{
+        var xValue = d3.select("#xSelector").node().value;
+        var yValue = d3.select("#ySelector").node().value;
+      console.log(xValue,"FSF")
+      var myGroups = d3.map(data, function(d){return d[xValue];}).keys()
+      var myVars = d3.map(data, function(d){return d[yValue];}).keys()
+
+      const frequencyMap = {};
+      for(let i=0;i<data.length;i++){
+            const key = data[i][xValue] + '#' + data[i][yValue];
+            frequencyMap[key] = (frequencyMap[key] || 0) + 1;
+        }
+
+        console.log(frequencyMap,"SDS")
+
+      svg.select(".xAxis").remove();
+      svg.select(".title").remove();
+      svg.select(".yAxis").remove();
+      svg.selectAll("rect").remove();
+      if(document.getElementById("tooltip"))
+      document.getElementById("tooltip").remove();
+    
+      // Build X scales and axis:
+      var x = d3.scaleBand()
+        .range([ 0, width ])
+        .domain(myGroups)
+        .padding(0.05);
+      svg.append("g")
+        .style("font-size", 15)
+        .attr("class", "xAxis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickValues(x.domain().filter(function(d, i) {
+        // Display every nth label, adjust 'n' as needed
+        return i % 2 === 0;
+    })));
+
+    
+      // Build Y scales and axis:
+      var y = d3.scaleBand()
+        .range([ height, 0 ])
+        .domain(myVars)
+        .padding(0.05);
+      svg.append("g")
+        .style("font-size", 15)
+        .attr("class", "yAxis")
+        .call(d3.axisLeft(y).tickValues(y.domain().filter(function(d, i) {
+        // Display every nth label, adjust 'n' as needed
+        return i % 3 === 0;
+    })));
+    
+      // Build color scale
+      var myColor = d3.scaleLinear()
+            .range(["lightblue", "maroon"])
+            .domain([0,data.length])
+    
+      // create a tooltip
+    //   var tooltip = d3.select("#my_dataviz")
+    //     .append("div")
+    //     .style("opacity", 0)
+    //     .attr("class", "tooltip")
+    //     .style("background-color", "white")
+    //     .style("border", "solid")
+    //     .style("border-width", "2px")
+    //     .style("border-radius", "5px")
+    //     .style("padding", "5px")
+    //     .style("margin-bottom","40px")
+    
+      // Three function that change the tooltip when user hover / move / leave a cell
+      var mouseover = function(d) {
+        tooltip
+          .style("opacity", 1)
+        d3.select(this)
+          .style("stroke", "black")
+          .style("opacity", 1)
+      }
+      var mousemove = function(d) {
+        tooltip
+          .html("value of this cell is: " + d[yValue])
+          .style("left", (d3.mouse(this)[0]+70) + "px")
+          .style("top", (d3.mouse(this)[1]+150) + "px")
+      }
+      var mouseleave = function(d) {
+        tooltip
+          .style("opacity", 0)
+        d3.select(this)
+          .style("stroke", "none")
+          .style("opacity", 0.8)
+      }
+    
+      // add the squares
+      svg.selectAll()
+        .data(data, function(d) {return d[xValue]+':'+d[yValue];})
+        .enter()
+        .append("rect")
+          .attr("x", function(d) { return x(d[xValue]) })
+          .attr("y", function(d) { return y(d[yValue]) })
+          .attr("rx", 4)
+          .attr("ry", 4)
+          .attr("width", x.bandwidth() )
+          .attr("height", y.bandwidth() )
+          .style("fill", function(d) { return myColor(frequencyMap[d[xValue]+'#'+d[yValue]])} )
+          .style("stroke-width", 4)
+          .style("stroke", "none")
+          .style("opacity", 0.8)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+// })
+    
+    // Add title to graph
+    svg.append("text")
+            .attr("class","title")
+            .attr("x", 0)
+            .attr("y", -50)
+            .attr("text-anchor", "left")
+            .style("font-size", "22px")
+            .text("Correlation: "+yValue+" vs "+xValue);
+
+
+    const frequencies = Object.values(frequencyMap);
+    var legendScale = d3.scaleLinear()
+    .range(["lightblue", "maroon"])
+    .domain([0, data.length]);
+
+// Create legend
+
+var legendWidth = 100;
+var legendHeight = 30;
+var legendX = 400
+var legendY = 5;
+
+
+
+// var legend = svg.append("g")
+//     .attr("class", "legend")
+//     .attr("transform", "translate(" + legendX + "," + legendY + ")");
+
+legend.selectAll("rect")
+    .data(d3.range(legendWidth))
+    .enter().append("rect")
+    .attr("x", 0)
+    .attr("y", function(d, i) { return i * legendHeight; })
+    .attr("width", legendWidth / data.length)
+    .attr("height", legendHeight)
+    .style("fill", function(d) { return legendScale(d); });
+
+// Add legend title
+legend.append("text")
+    .attr("x", legendWidth / 2)
+    .attr("y", -5)
+    .style("text-anchor", "middle")
+    .text("Legend");
+
+// Add legend labels
+var legendLabels = legend.selectAll(".legendLabel")
+    .data(legendScale.ticks(5))
+    .enter().append("text")
+    .attr("class", "legendLabel")
+    .attr("x", legendWidth + 20)
+    .attr("y", function(d, i) { return i * (legendHeight * 5); })
+    .style("text-anchor", "middle")
+    .text(function(d) { return d; });
+    
+    // Add subtitle to graph
+    // svg.append("text")
+    //         .attr("x", 0)
+    //         .attr("y", -20)
+    //         .attr("text-anchor", "left")
+    //         .style("font-size", "14px")
+    //         .style("fill", "grey")
+    //         .style("max-width", 400)
+    //         .text("Heatmap of "+yValue+" vs "+xValue);
+    // }
+    }
+
+    
+
+
+    var dropdownX = d3.select("body")
+    .append("select")
+    .attr("id", "xSelector")
+    .style("width","150px")
+    .style("height","40px")
+    .style("margin-top","500px")
+    .style("margin-left","-350px")
+    .style("background","transparent")
+    .style("text-align","center")
+    .style("border-radius","10px")
+    .style("margin-right","10px")
+    .on("change", upFunc);
+
+    dropdownX.selectAll("option")
+    .data(Object.keys(data[0]).slice(1))
+    .enter().append("option")
+    .text(function(d) { return d; });
+
+// Create a dropdown menu for y values
+    var dropdownY = d3.select("body")
+    .append("select")
+    .attr("id", "ySelector")
+    .style("width","150px")
+    .style("height","40px")
+    .style("margin-top","500px")
+    .style("background","transparent")
+    .style("text-align","center")
+    .style("border-radius","10px")
+    .on("change", upFunc);
+    
+    dropdownY.selectAll("option")
+    .data(Object.keys(data[0]).slice(1))
+    .enter().append("option")
+    .text(function(d) { return d; });
+
+
+
+    upFunc()
+    
+    
+    </script>
