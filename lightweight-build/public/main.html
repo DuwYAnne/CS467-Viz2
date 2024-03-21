@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>D3 starter template</title>
+  <meta name="description" content="D3 starter template">
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <meta name="author" content="">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <script type="text/javascript">
+    var globalData;
+  </script>
+  <div id="content">
+    <nav id="nav">
+      <a href="#page1">Upload</a>
+      <a href="#page2">Overview</a>
+      <a id="page3nav" href="#page3">Compare</a>
+    </nav>
+    <main>
+      <div id="page2" class="page">
+        <div class="arrow-container">
+          <button class="arrow arrow-left">&lt;</button>
+          <p id="button-text" class="button-text"> There's no data :( </p>
+          <button class="arrow arrow-right">&gt;</button>
+        </div>        
+        <svg id="svg" width="1000" height="1000"></svg>
+      </div>
+      <div id="page3" class="page">
+        <!-- <h1>Page 3</h1>
+        <p>Okay... This is the third page...</p> -->
+        <div id="my_dataviz"></div>
+      </div>
+      <div id="page4" class="page">
+        <h1>Page 4</h1>
+        <p>Uhh... lol page?</p>
+      </div>
+      <div id="page1" class="page default">
+        <div class="imagecontainer">
+          <h2>Upload .csv file containing Daily Calories/Sleep/Activity info!</h2>
+          <p class="subheader">.csv columns should be Date,Calories,SleepMinutes,ActivityMinutes</p>
+          <p class="info">Date should include month, year, and day (in any normal format such as YYYY-MM-DD or MM/DD/YYYY) </p>
+          
+          <form action="#" id="uploadForm">
+           <input type="file" id="myfile" name="filename">
+           <input type="submit">
+         </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="compare.js" type="text/javascript"></script>
+  <script src="main.js" type="module"></script>
+  <!-- 
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+  /**
+   * Main entry point -- this file has been added to index.html in a <script> tag. Add whatever code you want below.
+   */
+  "use strict";
+
+  const data = [
+      {x: 10, y: 30, r: 10, color: "red"},
+      {x: 50, y: 30, r: 20, color: "green"},
+      {x: 110, y: 30, r: 30, color: "blue"}
+  ];
+
+  /*
+  * Why this line? Because if this script runs before the svg exists, then nothing will happen, and d3 won't even
+  * complain.  This delays drawing until the entire DOM has loaded.
+  */
+  window.addEventListener("load", drawCircles);
+
+  function drawCircles() {
+      // d3 has been added to the html in a <script> tag so referencing it here should work.
+      const svg = d3.select("svg");
+      svg.selectAll("circle")
+          .data(data)
+          .join("circle")
+              .attr("cx", d => d.x)
+              .attr("cy", d => d.y)
+              .attr("r", d => d.r)
+              .attr("fill", d => d.color);
+  }
+  </script>
+  <svg width="300" height="100"></svg>
+  -->
+</body>
+</html>
