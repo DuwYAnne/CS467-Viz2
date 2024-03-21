@@ -1,4 +1,4 @@
-const svg = d3.select("#svg");
+const svgCalendar = d3.select("#svg");
 const { width, height } = document
   .getElementById("svg")
   .getBoundingClientRect();
@@ -11,12 +11,11 @@ const mood = {
   5: 'very positive'
 }
 var type = 0; // 0: mood, 1: sleepminutes, 2: activeminutes, 4: etc.
-let globalData; // Declare a global variable to store the parsed data
 function tooltip(d) {
   const formatDate = d3.timeFormat("%B %d, %Y");
   switch (type) {
     case 0:
-      return `You had a ${mood[d.value]} mood on ${formatDate(d.date)}}`
+      return `${formatDate(d.date)}: consumed ${d.value.toFixed(0)}`
     case 1:
       return `${formatDate(d.date)}: ${d.value.toFixed(0)} minutes of sleep`
     case 2:
@@ -31,7 +30,7 @@ function drawCalendar() {
     case 0:
       dateValues = globalData.map(dv => ({
         date: d3.utcDay(new Date(dv.Date)),
-        value: Number(dv.Mood)
+        value: Number(dv.Calories)
       }));
       break;
     case 1:
@@ -53,7 +52,7 @@ function drawCalendar() {
   }
   console.log(dateValues)
 
-  const categorical = type == 0;
+  const categorical = false;
   const years = Array.from(
     d3.group(dateValues, d => d.date.getUTCFullYear()),
     ([key, values]) => ({ key, values })
@@ -66,10 +65,10 @@ function drawCalendar() {
   const cellSize = 17;
   const yearHeight = cellSize * 7;
 
-  var group = svg.select("g");
+  var group = svgCalendar.select("g");
   // If the <g> element doesn't exist yet, append it
   if (group.empty()) {
-      group = svg.append("g");
+      group = svgCalendar.append("g");
   }
 
   const year = group
@@ -281,6 +280,10 @@ function processData(contents) {
   drawCalendar();
 }
 
+document.getElementById('page3nav').addEventListener('click', function(event) {
+  drawHeatmap();
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
   // Get references to the arrow buttons
@@ -310,7 +313,7 @@ function changeButton() {
   const buttonText = document.getElementById('button-text');
   switch (type) {
     case 0: 
-      buttonText.textContent = "Mood Heatmap"
+      buttonText.textContent = "Calories Heatmap"
       break;
     case 1: 
       buttonText.textContent = "Minutes of Sleep Heatmap"
